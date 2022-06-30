@@ -2985,7 +2985,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0675dbe8efc6a824786a046a0f0d920c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brzina: 5
+  brzina: 3
+  cevi: []
   cevpref: {fileID: 7354216062920515341, guid: a7c4b3b8ea6fba647ac34dfae78ad8a6, type: 3}
 --- !u!1 &951050917
 GameObject:

@@ -10,7 +10,7 @@ public class Movement : MonoBehaviour
     Material material;//material zemlje
     Camera camera;
     GameManager gm;
-    List<GameObject> cevi;
+    public List<GameObject> cevi;
     [SerializeField] GameObject cevpref;
 
     Vector2 coord; //koordinata za postavljanje novih cevi 
@@ -36,22 +36,27 @@ public class Movement : MonoBehaviour
 
         cevpref.transform.localScale = Vector3.one * cameraHeight / 15f;
 
-        verzijaCevi = 1;
-        while (campoint.y <= 1 && campoint.y >= 0 && campoint.x <= 1 && campoint.x >= 0) //posto je telefon uspravan, povecan opseg sirine (x) (umesto od 0 do 1, -1 do 2)
+        int i = 0;
+        while (i < 2)
         {
             cevi.Add(Instantiate(cevpref));
-            int i = (int)(Math.Abs(smer.x * 10) + verzijaCevi);
-            cevi[cevi.Count - 1].GetComponent<SpriteRenderer>().sprite = (Sprite)gm.sprht[i];
+            int j = (int)(Math.Abs(smer.x * 10) + verzijaCevi);
+            cevi[cevi.Count - 1].GetComponent<SpriteRenderer>().sprite = (Sprite)gm.sprht[j];
 
             cevi[cevi.Count - 1].transform.position = coord;
             
             coord += -1*smer * cevi[cevi.Count - 1].GetComponent<SpriteRenderer>().bounds.size*0.95f;
             campoint = camera.WorldToViewportPoint(coord);
             verzijaCevi = Convert.ToInt32(!(verzijaCevi == 1)); //1->0, 0->1
+            if (!(campoint.y <= 1 && campoint.y >= 0 && campoint.x <= 1 && campoint.x >= 0))
+                i++;
         }
+
+
         coord = camera.ViewportToWorldPoint((smer + Vector2.one) / 2); //Vracanje vrednosti na pocetnu
         Destroy(camera.gameObject); //brisanje pomocne kamere pomocu koje se postavljju cevi na pocetni polozaj
         camera = Camera.main;
+        verzijaCevi = 1;
     }
 
 
@@ -66,19 +71,23 @@ public class Movement : MonoBehaviour
 
         brzina *= 1.00001f;
 
+        int poslednja = cevi.Count - 1;
 
-        Vector2 v2 = camera.WorldToViewportPoint(cevi[0].transform.position);
-        if (v2.x - cevi[0].transform.localScale.x / 2 > 1 || v2.x + cevi[0].transform.localScale.x / 2 < 0 ||
-            v2.y - cevi[0].transform.localScale.y / 2 > 1 || v2.y + cevi[0].transform.localScale.y / 2 < 0) //ako je cev izasla iz vidokruga
+        Vector2 v2 = camera.WorldToViewportPoint(cevi[poslednja].transform.position);
+        if (v2.x - cevi[poslednja].transform.localScale.x / 2 > 1 || v2.x + cevi[poslednja].transform.localScale.x / 2 < 0 ||
+            v2.y - cevi[poslednja].transform.localScale.y / 2 > 0.75 || v2.y + cevi[poslednja].transform.localScale.y / 2 < 0) //ako je cev izasla iz vidokruga
         {
-            Destroy(cevi[0]);
-            cevi.RemoveAt(0);
-            cevi.Add(Instantiate(cevpref));
-            int j = (int)(Math.Abs(smer.x * 10) + verzijaCevi);
-            cevi[cevi.Count - 1].GetComponent<SpriteRenderer>().sprite = (Sprite)gm.sprht[j];
+            Destroy(cevi[poslednja]);
+            cevi.RemoveAt(poslednja);
+            
+            cevi.Insert(0, Instantiate(cevpref));
 
-            Vector2 pozicijaproslog = cevi[cevi.Count - 2].transform.position;
-            cevi[cevi.Count - 1].transform.position = pozicijaproslog - smer * cevpref.transform.localScale; //Satviti ga na pocetak od cevi[len-2]
+
+            int j = (int)(Math.Abs(smer.x * 10) + verzijaCevi);
+            cevi[0].GetComponent<SpriteRenderer>().sprite = (Sprite)gm.sprht[j];
+
+            Vector2 pozicijaproslog = cevi[1].transform.position;
+            cevi[0].transform.position = pozicijaproslog + smer * cevpref.transform.localScale*2.5f; //Satviti ga na pocetak od cevi[len-2]
 
             verzijaCevi = Convert.ToInt32(!(verzijaCevi == 1)); //1->0, 0->1
         }
