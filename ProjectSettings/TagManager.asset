@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - MestoGdeKameraPada
+  - PomocnaKamera
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - BackGorund
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: BackGround
+    uniqueID: 4185060217
+    locked: 0
+  - name: DubljaPozadina
+    uniqueID: 2380841263
+    locked: 0
+  - name: Pozadina
+    uniqueID: 3737196875
+    locked: 0
+  - name: Drva
+    uniqueID: 1737049617
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
