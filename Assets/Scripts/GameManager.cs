@@ -19,7 +19,18 @@ public class GameManager : MonoBehaviour
         sprht.Add(11, sprites[1]);
         sprht.Add(00, sprites[2]);
         sprht.Add(01, sprites[3]);
-        //TODO: Zglobovi...
+
+        //Zglobovi: (vertikalno -> horizontalno)
+        sprht.Add("0110", sprites[4]); //PRVA CIFRA SMER Y + 3, DRUGA IFRA SMER X + 3 //+3 da ne bi doslo do ponavljanja vrednosti kljuca
+        sprht.Add("01-10", sprites[5]);
+        sprht.Add("0-110", sprites[6]);
+        sprht.Add("0-1-10", sprites[7]);
+
+        //Zglobovi horizontalno -> vertikalno
+        sprht.Add("-100-1", sprites[4]); //PRVA CIFRA SMER Y + 3, DRUGA IFRA SMER X + 3 //+3 da ne bi doslo do ponavljanja vrednosti kljuca
+        sprht.Add("100-1", sprites[5]);
+        sprht.Add("-1001", sprites[6]);
+        sprht.Add("1001", sprites[7]);
     }
 
     public void Play()

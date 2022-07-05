@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MestoGdeKameraPada
   - PomocnaKamera
+  - Cev
   layers:
   - Default
   - TransparentFX
